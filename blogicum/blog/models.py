@@ -24,15 +24,15 @@ class Category(TimestampModel):
     slug = models.SlugField(
         'Идентификатор',
         max_length=64, unique=True,
-        help_text='Идентификатор страницы для URL; разрешены символы '
-                  'латиницы, цифры, дефис и подчёркивание.')
+        help_text=('Идентификатор страницы для URL; разрешены символы '
+                   'латиницы, цифры, дефис и подчёркивание.'))
 
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title[:50]
+        return self.title
 
 
 class Location(TimestampModel):
@@ -45,9 +45,7 @@ class Location(TimestampModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return (f'{self.id} '
-                f'{self.name[:50]} Добавлен:{self.created_at:%d.%m.%Y} '
-                f' {"Опубликован" if self.is_published else "Не опубликован"}')
+        return self.name
 
 
 class Post(TimestampModel):
@@ -57,12 +55,12 @@ class Post(TimestampModel):
     text = models.TextField('Текст')
     pub_date = models.DateTimeField(
         'Дата и время публикации',
-        help_text='Если установить дату и время в будущем — можно делать '
-                  'отложенные публикации.')
+        help_text=('Если установить дату и время в будущем — можно делать '
+                   'отложенные публикации.'))
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='post',
+        related_name='posts',
         verbose_name='Автор публикации'
     )
     location = models.ForeignKey(
@@ -70,14 +68,14 @@ class Post(TimestampModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name='post',
+        related_name='posts',
         verbose_name='Местоположение'
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='post',
+        related_name='posts',
         verbose_name='Категория'
     )
 
@@ -87,4 +85,5 @@ class Post(TimestampModel):
         ordering = ('-pub_date',)
 
     def __str__(self):
-        return self.title[:50]
+        return self.title
+
