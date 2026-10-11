@@ -1,15 +1,24 @@
 from django.contrib import admin
-
-
 from .models import Category, Post, Location
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    search_fields = ('name',)
+    list_filter = ('name',)
 
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'city', 'created_at')
+    search_fields = ('name', 'city')
+    list_filter = ('city',)
+    list_display_links = ('name',)
+    empty_value_display = 'Не задано'
+
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    """PostAdmin."""
-
     list_display = (
         'title',
-        'text',
         'author',
         'pub_date',
         'location',
@@ -18,15 +27,11 @@ class PostAdmin(admin.ModelAdmin):
         'created_at'
     )
     list_editable = (
-        'text',
-        'category'
+        'category',
     )
     search_fields = ('title', 'text')
-    list_filter = ('category', 'author')
+    list_filter = ('category', 'author', 'is_published', 'location')
     list_display_links = ('title',)
     empty_value_display = 'Не задано'
-
-
-admin.site.register(Category)
-admin.site.register(Location)
-admin.site.register(Post, PostAdmin)
+    date_hierarchy = 'pub_date'
+    ordering = ('-pub_date',)
