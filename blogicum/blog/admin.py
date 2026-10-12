@@ -1,11 +1,13 @@
 from django.contrib import admin
 from .models import Category, Post, Location
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     search_fields = ('name',)
     list_filter = ('name',)
+
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -14,6 +16,7 @@ class LocationAdmin(admin.ModelAdmin):
     list_filter = ('city',)
     list_display_links = ('name',)
     empty_value_display = 'Не задано'
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
