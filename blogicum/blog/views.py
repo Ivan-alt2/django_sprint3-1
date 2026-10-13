@@ -34,11 +34,10 @@ def post_detail(request, post_id):
 
 def category_posts(request, category_slug):
     try:
-        # Выравнивание по запятой для PEP8.
-        category = (
-            get_published_posts(Category.objects.all()),
-            .get(slug=category_slug)
-        )
+        # Переносим строку по точке.
+        category = get_published_posts(
+            Category.objects.all()
+        ).get(slug=category_slug)
     except Category.DoesNotExist:
         raise Http404("Категория не найдена")
     
