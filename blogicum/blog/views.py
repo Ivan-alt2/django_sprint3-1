@@ -31,7 +31,7 @@ def category_posts(request, slug):
     # ... какая-то логика ...
     return render(request, 'blog/category.html', {
         'category': category,
-        'posts': get_published_posts(category.posts) # Исправлено на множественное число
+        'posts': get_published_posts(category.posts)
     })
 
 #        'posts': get_published_posts(Post.objects.filter(category=category))})
