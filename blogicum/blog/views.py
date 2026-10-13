@@ -26,13 +26,12 @@ def post_detail(request, post_id):
         {'post': get_object_or_404(get_published_posts(), pk=post_id)})
 
 
-def category_posts(request, category_slug):
-    category = get_object_or_404(
-        Category,
-        slug=category_slug,
-        is_published=True)
+def category_posts(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    # ... какая-то логика ...
     return render(request, 'blog/category.html', {
         'category': category,
-        'posts': get_published_posts(category.post)})
+        'posts': get_published_posts(category.posts) # Исправлено на множественное число
+    })
 
 #        'posts': get_published_posts(Post.objects.filter(category=category))})
