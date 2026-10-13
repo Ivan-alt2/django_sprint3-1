@@ -1,5 +1,6 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 from django.utils import timezone
 from blog.models import Post, Category
 
@@ -36,7 +37,7 @@ def category_posts(request, category_slug):
 
     return render(
         request,
-        'blog/category.html',
-        {'category': category, 'posts': posts}
+        "blog/category.html",
+        {"category": category, "posts": posts}
     )
 #        'posts': get_published_posts(Post.objects.filter(category=category))})
