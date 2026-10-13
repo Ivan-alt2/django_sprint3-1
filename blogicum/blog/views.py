@@ -27,10 +27,16 @@ def post_detail(request, post_id):
 
 
 def category_posts(request, category_slug):
-    category = get_object_or_404(Category, slug=category_slug)
-    return render(request, 'blog/category.html', {
-        'category': category,
-        'posts': get_published_posts(category.posts)
-    })
+    try:
+        category = get_published_posts(Category.objects.all()).get(slug=category_slug)
+    except Category.DoesNotExist:
+        raise Http404("Категория не найдена")
+    
+    posts = get_published_posts(category.posts.all())
 
+    return render(
+        request,
+        'blog/category.html',
+        {'category': category, 'posts': posts}
+    )
 #        'posts': get_published_posts(Post.objects.filter(category=category))})
