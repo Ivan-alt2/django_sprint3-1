@@ -29,7 +29,10 @@ def post_detail(request, post_id):
 
 def category_posts(request, category_slug):
     try:
-        category = get_published_posts(Category.objects.all()).get(slug=category_slug)
+        category = (
+            get_published_posts(Category.objects.all())
+                .get(slug=category_slug)
+        )
     except Category.DoesNotExist:
         raise Http404("Категория не найдена")
     
