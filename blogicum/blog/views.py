@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.utils import timezone
 from blog.models import Post, Category
+from django.db.models import QuerySet
 
 
 def get_published_posts(posts: QuerySet = Post.objects.all()):
