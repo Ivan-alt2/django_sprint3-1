@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
 from django.utils import timezone
 from blog.models import Post, Category
 from django.db.models import QuerySet
@@ -31,14 +30,10 @@ def post_detail(request, post_id):
 
 
 def category_posts(request, category_slug):
-    try:
-        category = Category.objects.get(
-            slug=category_slug,
-            is_published=True,
-        )
-    except Category.DoesNotExist:
-        raise Http404("Категория не найдена")
-
+    category = get_object_or_404(
+        Category.objects.filter(is_published=True),
+        slug=category_slug,
+    )
     posts = get_published_posts(category.posts.all())
     return render(
         request,
