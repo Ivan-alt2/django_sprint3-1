@@ -21,9 +21,10 @@ class TimestampModel(models.Model):
 
 class PublishedManager(models.Manager):
     """
-    Менеджер для выборки только опубликованных постов,
-    дата которых уже наступила.
+    Менеджер для выборки только опубликованных записей,
+    дата публикации которых уже наступила.
     """
+
     def get_queryset(self):
         now = timezone.now()
         return super().get_queryset().filter(
@@ -56,7 +57,6 @@ class Category(TimestampModel):
             base_slug = slugify(self.title)
             slug = base_slug
             counter = 1
-            # Гарантируем уникальность slug
             while Category.objects.filter(slug=slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
