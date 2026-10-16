@@ -23,7 +23,8 @@ class Category(TimestampModel):
     description = models.TextField('Описание')
     slug = models.SlugField(
         'Идентификатор',
-        max_length=64, unique=True,
+        max_length=64,
+        unique=True,
         help_text=(
             'Идентификатор страницы для URL; разрешены символы '
             'латиницы, цифры, дефис и подчёркивание.'
@@ -58,9 +59,11 @@ class Post(TimestampModel):
     text = models.TextField('Текст')
     pub_date = models.DateTimeField(
         'Дата и время публикации',
+        null=True,
+        blank=True,
         help_text=(
             'Если установить дату и время в будущем — можно делать '
-            'отложенные публикации.'
+            'отложенные публикации. Оставьте пустым для черновика.'
         )
     )
     author = models.ForeignKey(
@@ -81,6 +84,7 @@ class Post(TimestampModel):
         Category,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         related_name='posts',
         verbose_name='Категория'
     )
@@ -92,3 +96,4 @@ class Post(TimestampModel):
 
     def __str__(self):
         return self.title
+
