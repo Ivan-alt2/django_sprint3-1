@@ -96,4 +96,3 @@ class Post(TimestampModel):
 
     def __str__(self):
         return self.title
-
