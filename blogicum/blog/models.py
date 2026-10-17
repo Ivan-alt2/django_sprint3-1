@@ -6,6 +6,7 @@ User = get_user_model()
 
 class TimestampModel(models.Model):
     """Базовая модель с полями публикации и времени создания."""
+
     is_published = models.BooleanField(
         verbose_name='Опубликовано',
         default=True,
@@ -22,6 +23,7 @@ class TimestampModel(models.Model):
 
 class Category(TimestampModel):
     """Категория для публикаций."""
+
     title = models.CharField(
         verbose_name='Заголовок',
         max_length=256,
@@ -50,6 +52,7 @@ class Category(TimestampModel):
 
 class Location(TimestampModel):
     """Местоположение публикации."""
+
     name = models.CharField(
         verbose_name='Название места',
         max_length=256,
@@ -65,6 +68,7 @@ class Location(TimestampModel):
 
 class Post(TimestampModel):
     """Публикация (пост) в блоге."""
+
     title = models.CharField(
         verbose_name='Заголовок',
         max_length=256,
@@ -108,4 +112,3 @@ class Post(TimestampModel):
 
     def __str__(self):
         return self.title
-
