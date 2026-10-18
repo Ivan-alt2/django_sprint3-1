@@ -101,7 +101,7 @@ class Post(TimestampModel):
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True,
+        # blank=True убран, чтобы поле было обязательным в формах
         related_name='posts',
         verbose_name='Категория',
     )
