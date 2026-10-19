@@ -113,3 +113,5 @@ class Post(TimestampModel):
 
     def __str__(self):
         return self.title
+
+# я не знаю как испоравить
